@@ -11,7 +11,7 @@ namespace Logic
 
 		public PlayerController(CollisionDetection collisionDetection)
 		{
-
+			m_CollisionDetection = collisionDetection;
 		}
 
 		public void Init(Player player)
@@ -40,7 +40,11 @@ namespace Logic
 
 		private void MoveTo(Position position)
 		{
-			m_Player.Position = position;
+			if (m_CollisionDetection.IsRigidPosition(position) == null)
+			{
+				m_Player.Position = position;
+			}
+
 		}
 
 	}
