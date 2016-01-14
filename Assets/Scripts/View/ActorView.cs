@@ -29,7 +29,7 @@ namespace View
 
 		}
 
-		private void OnPositionChanged(Position position)
+		private void OnPositionChanged(Actor actor)
 		{
 			Vector3 target = new Vector3(Parent.Position.X * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f, 0.0f, 
 			                             Parent.Position.Y * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f);

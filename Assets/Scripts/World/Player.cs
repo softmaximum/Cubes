@@ -7,6 +7,13 @@ namespace World
 	{
 		public Player()
 		{
+
+		}
+
+		public override void OnActorCollide (Actor actor)
+		{
+			base.OnActorCollide (actor);
+			Debug.Log(actor);
 		}
 
 		public void OnKeyPressed(KeyCode key)
@@ -14,23 +21,23 @@ namespace World
 			switch (key)
 			{
 				case KeyCode.UpArrow:
-					Position = new Position(Position.X, Position.Y + 1);
+					MoveTo(new Position(Position.X, Position.Y + 1));
 				break;
 				case KeyCode.DownArrow:
-					Position = new Position(Position.X, Position.Y - 1);
+					MoveTo(new Position(Position.X, Position.Y - 1));
 				break;
 				case KeyCode.LeftArrow:
-					Position = new Position(Position.X - 1, Position.Y);
+					MoveTo(new Position(Position.X - 1, Position.Y));
 				break;
 				case KeyCode.RightArrow:
-					Position = new Position(Position.X + 1, Position.Y);
+					MoveTo(new Position(Position.X + 1, Position.Y));
 				break;
 			}
 		}
 
 		private void MoveTo(Position position)
 		{
-
+			Position = position;
 		}
 	}
 }

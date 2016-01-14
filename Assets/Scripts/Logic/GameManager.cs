@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using GameGrid;
 using World;
 
@@ -14,6 +15,7 @@ namespace Logic
 		private Grid m_Grid;
 		private List<Actor> m_Actors;
 		private InputManager m_InputManager;
+		private CollisionDetection m_CollisionDetection;
 
 		/// <summary>
 		/// Init this instance.
@@ -26,7 +28,8 @@ namespace Logic
 			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager));
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
 			m_Actors = spawnManager.Spawn(m_Grid);
-
+			m_CollisionDetection = new CollisionDetection(m_Actors);
+			m_CollisionDetection.Init();
 		}
 
 		/// <summary>
@@ -34,6 +37,7 @@ namespace Logic
 		/// </summary>
 		public void Tick(float deltaTime)
 		{
+			//m_CollisionDetection.Tick(deltaTime);
 			m_InputManager.Tick(deltaTime);
 			for (int i = 0; i < m_Actors.Count; i++) 
 			{

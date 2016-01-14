@@ -20,8 +20,11 @@ namespace World
 	public abstract class Actor
 	{
 		protected Position m_Position;
+
+		public bool IsCollider = true;
 		public Action Initialized;
-		public Action<Position> PositionChanged;
+		public Action<Actor> PositionChanged;
+		public Action<Actor> Collide;
 		public Position Position
 		{
 			get
@@ -35,7 +38,7 @@ namespace World
 					m_Position = value;
 					if (PositionChanged != null)
 					{
-						PositionChanged(m_Position);
+						PositionChanged(this);
 					}
 				}
 			}
@@ -46,6 +49,14 @@ namespace World
 			if (Initialized != null)
 			{
 				Initialized();
+			}
+		}
+
+		public virtual void OnActorCollide(Actor actor)
+		{
+			if (Collide != null)
+			{
+				Collide(actor);
 			}
 		}
 
