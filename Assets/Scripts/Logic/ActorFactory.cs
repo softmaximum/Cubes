@@ -11,10 +11,11 @@ namespace Logic
 		private const float VIEW_SCALE_FACTOR = 1.0f;
 		private delegate Actor CreateActorAction();
 		private InputManager m_InputManager;
+		private PlayerController m_PlayerController;
 
 		private Dictionary<int, CreateActorAction> IntToActorType;
 
-		public ActorFactory(InputManager inputManager)
+		public ActorFactory(InputManager inputManager, PlayerController playerController)
 		{
 			IntToActorType = new Dictionary<int, CreateActorAction>()
 			{
@@ -23,6 +24,7 @@ namespace Logic
 			};
 
 			m_InputManager = inputManager;
+			m_PlayerController = playerController;
 		}
 
 		private Actor CreatePlayer()
@@ -32,7 +34,8 @@ namespace Logic
 			go.transform.localScale *= VIEW_SCALE_FACTOR;
 			PlayerView view = go.AddComponent<PlayerView>();
 			view.Init(player);
-			m_InputManager.KeyPressed += player.OnKeyPressed;
+			m_InputManager.KeyPressed += m_PlayerController.OnKeyPressed;
+			m_PlayerController.Init(player);
 			return player;
 		}
 

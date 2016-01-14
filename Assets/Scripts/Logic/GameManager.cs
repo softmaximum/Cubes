@@ -23,13 +23,13 @@ namespace Logic
 		public void Init()
 		{
 			m_InputManager = new InputManager();
+			m_CollisionDetection = new CollisionDetection();
 			m_Grid = new Grid();
 			m_Grid.Load(GRID_DATA_FILE_NAME);
-			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager));
+			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection)));
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
 			m_Actors = spawnManager.Spawn(m_Grid);
-			m_CollisionDetection = new CollisionDetection(m_Actors);
-			m_CollisionDetection.Init();
+			m_CollisionDetection.Init(m_Actors);
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Logic
 		/// </summary>
 		public void Tick(float deltaTime)
 		{
-			//m_CollisionDetection.Tick(deltaTime);
+			m_CollisionDetection.Tick(deltaTime);
 			m_InputManager.Tick(deltaTime);
 			for (int i = 0; i < m_Actors.Count; i++) 
 			{

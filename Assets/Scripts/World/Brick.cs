@@ -7,7 +7,7 @@ namespace World
 	{
 		public Brick()
 		{
-		
+			IsRigid = true;
 		}
 	}
 }

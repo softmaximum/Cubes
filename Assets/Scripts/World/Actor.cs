@@ -22,6 +22,7 @@ namespace World
 		protected Position m_Position;
 
 		public bool IsCollider = true;
+		public bool IsRigid;
 		public Action Initialized;
 		public Action<Actor> PositionChanged;
 		public Action<Actor> Collide;

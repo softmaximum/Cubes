@@ -9,18 +9,19 @@ namespace Logic
 	public class CollisionDetection
 	{
 		private List<Actor> m_Colliders;
-
-		public CollisionDetection(List<Actor> colliders)
+	
+		public void Init(List<Actor> colliders)
 		{
 			m_Colliders = colliders;
-		}
-
-		public void Init()
-		{
 			for (int i = 0; i < m_Colliders.Count; i++) 
 			{
 				m_Colliders[i].PositionChanged += CheckCollision;
 			}
+		}
+
+		public Actor IsRigidPosition(Position position)
+		{
+			return m_Colliders.Where(x => x.IsRigid && x.Position.X == position.X && x.Position.Y == position.Y).FirstOrDefault();
 		}
 
 		private void CheckCollision(Actor actor)
@@ -47,20 +48,8 @@ namespace Logic
 		{
 			for (int i = 0; i < m_Colliders.Count; i++) 
 			{
-				if (m_Colliders[i].IsCollider)
+				if (m_Colliders[i].IsRigid)
 				{
-					for (int j = i + 1; j < m_Colliders.Count; j++) 
-					{
-						if (m_Colliders[j].IsCollider)
-						{
-							if (m_Colliders[i].Position.X == m_Colliders[j].Position.X && 
-							    m_Colliders[i].Position.Y == m_Colliders[j].Position.Y)
-							{
-								m_Colliders[i].OnActorCollide(m_Colliders[j]);
-								m_Colliders[j].OnActorCollide(m_Colliders[i]);
-							}
-						}
-					}
 				}
 			}
 		}
