@@ -23,9 +23,9 @@ namespace Logic
 		public void Init()
 		{
 			m_InputManager = new InputManager();
-			m_CollisionDetection = new CollisionDetection();
 			m_Grid = new Grid();
 			m_Grid.Load(GRID_DATA_FILE_NAME);
+			m_CollisionDetection = new CollisionDetection(m_Grid);
 			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection)));
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
 			m_Actors = spawnManager.Spawn(m_Grid);

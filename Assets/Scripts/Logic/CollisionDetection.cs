@@ -3,13 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using World;
+using GameGrid;
 
 namespace Logic
 {
 	public class CollisionDetection
 	{
 		private List<Actor> m_Colliders;
-	
+		private Grid m_Grid;
+
+		public CollisionDetection(Grid grid)
+		{
+			m_Grid = grid;
+		}
+
 		public void Init(List<Actor> colliders)
 		{
 			m_Colliders = colliders;
@@ -19,9 +26,15 @@ namespace Logic
 			}
 		}
 
-		public Actor IsRigidPosition(Position position)
+		public Actor GetRigid(Position position)
 		{
 			return m_Colliders.Where(x => x.IsRigid && x.Position.X == position.X && x.Position.Y == position.Y).FirstOrDefault();
+		}
+
+		public bool IsInGrid(Position position)
+		{
+			return position.X >= 0 && position.X < m_Grid.SizeX &&
+				   position.Y >= 0 && position.Y < m_Grid.SizeY;
 		}
 
 		private void CheckCollision(Actor actor)

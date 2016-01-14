@@ -8,7 +8,10 @@ namespace GameGrid
 		public const int GRID_CELL_SIZE = 1;
 		private const int GRID_SIZE_X = 10;
 		private const int GRID_SIZE_Y = 10;
-		private Cell[,] m_Cells; 
+		private Cell[,] m_Cells;
+
+		public int SizeX {get; private set;}
+		public int SizeY {get; private set;}
 
 		public Grid()
 		{
@@ -21,7 +24,8 @@ namespace GameGrid
 		private void Init()
 		{
 			m_Cells = new Cell[GRID_SIZE_X, GRID_SIZE_Y];
-
+			SizeX = GRID_SIZE_X;
+			SizeY = GRID_SIZE_Y;
 			for (int x = 0; x < GRID_SIZE_X; x++) 
 			{
 				for (int y = 0; y < GRID_SIZE_Y; y++) 

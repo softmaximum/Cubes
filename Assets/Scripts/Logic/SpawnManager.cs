@@ -22,7 +22,7 @@ namespace Logic
 				ActorType = actorType;
 			}
 		}
-		private SpawnData[] m_Data;
+		private List<SpawnData> m_Data;
 		private ActorFactory m_Factory;
 
 		public SpawnManager(ActorFactory factory)
@@ -58,9 +58,12 @@ namespace Logic
 		/// </summary>
 		public void LoadData(string fileName)
 		{
-			m_Data = new SpawnData[2];
-			m_Data[0] = new SpawnData(0, 0, 0);
-			m_Data[1] = new SpawnData(0, 3, 1);
+			m_Data = new List<SpawnData>();
+			m_Data.Add(new SpawnData(0, 0, 0));
+			m_Data.Add(new SpawnData(0, 1, 1));
+			m_Data.Add(new SpawnData(0, 2, 1));
+			m_Data.Add(new SpawnData(0, 3, 1));
+			m_Data.Add(new SpawnData(0, 4, 1));
 		}
 	}
 }
