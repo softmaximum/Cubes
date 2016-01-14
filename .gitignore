@@ -2,3 +2,6 @@ Library
 Assembly-CSharp.csproj
 Cubes.sln
 Cubes.userprefs
+Temp/ProcessJobs
+Temp/__EditModeScene
+Temp/UnityLockfile
