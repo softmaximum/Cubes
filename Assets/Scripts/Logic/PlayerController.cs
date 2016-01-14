@@ -40,6 +40,7 @@ namespace Logic
 
 		private void MoveTo(Position position)
 		{
+			//Check move to position for collisions
 			if (m_CollisionDetection.IsInGrid(position) && m_CollisionDetection.GetRigid(position) == null)
 			{
 				m_Player.Position = position;

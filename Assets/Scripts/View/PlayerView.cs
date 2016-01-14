@@ -11,6 +11,11 @@ namespace View
 			base.Init (actor);
 			var capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
 			capsule.transform.SetParent(transform, false);
+			Collider collider = capsule.GetComponent<Collider>();
+			capsule.transform.localPosition = new Vector3(capsule.transform.localPosition.x,
+			                                              capsule.transform.localPosition.y + collider.bounds.size.y / 2.0f,
+			                                              capsule.transform.localPosition.z);
+
 		}
 	}
 }
