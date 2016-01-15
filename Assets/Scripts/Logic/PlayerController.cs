@@ -47,6 +47,10 @@ namespace Logic
 			{
 				m_Player.MoveTo(position);
 			}
+		}
+
+		private void CreateBomb()
+		{
 
 		}
 

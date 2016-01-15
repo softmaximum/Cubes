@@ -9,8 +9,8 @@ namespace Logic
 {
 	public class CollisionDetection
 	{
-		private List<Actor> m_Colliders;
 		private Grid m_Grid;
+		public List<Actor> Colliders {get; private set;}
 
 		public CollisionDetection(Grid grid)
 		{
@@ -19,16 +19,16 @@ namespace Logic
 
 		public void Init(List<Actor> colliders)
 		{
-			m_Colliders = colliders;
-			for (int i = 0; i < m_Colliders.Count; i++) 
+			Colliders = colliders;
+			for (int i = 0; i < Colliders.Count; i++) 
 			{
-				m_Colliders[i].OnPositionChanged += CheckCollision;
+				Colliders[i].OnPositionChanged += CheckCollision;
 			}
 		}
 
 		public Actor GetRigid(int x, int y)
 		{
-			return m_Colliders.Where(collider => collider.IsRigid && collider.Position.X == x && collider.Position.Y == y).FirstOrDefault();
+			return Colliders.Where(collider => collider.IsRigid && collider.Position.X == x && collider.Position.Y == y).FirstOrDefault();
 		}
 
 		public Actor GetRigid(Position position)
@@ -46,29 +46,19 @@ namespace Logic
 		{
 			if (actor.IsCollider)
 			{
-				for (int i = 0; i < m_Colliders.Count; i++) 
+				for (int i = 0; i < Colliders.Count; i++) 
 				{
-					if (m_Colliders[i].IsCollider && m_Colliders[i] != actor)
+					if (Colliders[i].IsCollider && Colliders[i] != actor)
 					{
-						if (m_Colliders[i].Position.X == actor.Position.X && 
-						    m_Colliders[i].Position.Y == actor.Position.Y)
+						if (Colliders[i].Position.X == actor.Position.X && 
+						    Colliders[i].Position.Y == actor.Position.Y)
 						{
-							m_Colliders[i].OnActorCollide(actor);
-							actor.OnActorCollide(m_Colliders[i]);
+							Colliders[i].OnActorCollide(actor);
+							actor.OnActorCollide(Colliders[i]);
 						}
 					}
 				}
 
-			}
-		}
-
-		public void Tick(float deltaTime)
-		{
-			for (int i = 0; i < m_Colliders.Count; i++) 
-			{
-				if (m_Colliders[i].IsRigid)
-				{
-				}
 			}
 		}
 	}
