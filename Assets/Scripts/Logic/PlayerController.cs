@@ -6,12 +6,12 @@ namespace Logic
 {
 	public class PlayerController
 	{
-		private CollisionDetection m_CollisionDetection;
+		public CollisionDetection CollisionDetection {get; private set;}
 		private Player m_Player; 
 
 		public PlayerController(CollisionDetection collisionDetection)
 		{
-			m_CollisionDetection = collisionDetection;
+			CollisionDetection = collisionDetection;
 		}
 
 		public void Init(Player player)
@@ -41,7 +41,7 @@ namespace Logic
 		private void MoveTo(Position position)
 		{
 			//Check move to position for collisions
-			if (m_CollisionDetection.IsInGrid(position) && m_CollisionDetection.GetRigid(position) == null)
+			if (CollisionDetection.IsInGrid(position) && CollisionDetection.GetRigid(position) == null)
 			{
 				m_Player.Position = position;
 			}

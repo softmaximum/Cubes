@@ -27,6 +27,7 @@ namespace View
 			transform.position = new Vector3(Parent.Position.X * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f, 0.0f, 
 			                                 Parent.Position.Y * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f);
 			Parent.OnPositionChanged += OnPositionChanged;
+			Parent.OnPositionImmediateChanged += OnImmediatePositionChanged;
 
 		}
 
@@ -41,11 +42,26 @@ namespace View
 			m_Movement = StartCoroutine(MoveToPoint(target, ACTOR_MOVE_SPEED));
 		}
 
+		private void OnImmediatePositionChanged(Actor actor)
+		{
+			if (m_Movement != null)
+			{
+				StopCoroutine(m_Movement);
+			}
+
+			transform.position = new Vector3(Parent.Position.X * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f, 0.0f, 
+			                             Parent.Position.Y * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f);
+		}
+
 		private void OnDestroyHandler(Actor actor)
 		{
 			Parent.Initialized -= OnActorInitialized;
 			Parent.OnDestroy -= OnDestroyHandler;
 			Parent.OnPositionChanged -= OnPositionChanged;
+			if (m_Movement != null)
+			{
+				StopCoroutine(m_Movement);
+			}
 			Destroy(gameObject);
 		}
 

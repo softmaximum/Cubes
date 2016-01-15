@@ -13,21 +13,24 @@ namespace Logic
 		private InputManager m_InputManager;
 		private PlayerController m_PlayerController;
 		private CollisionDetection m_CollisionDetection;
+		private PortalsController m_PortalsController;
 
 		private Dictionary<int, CreateActorAction> IntToActorType;
 
-		public ActorFactory(InputManager inputManager, PlayerController playerController, CollisionDetection collisionDetection)
+		public ActorFactory(InputManager inputManager, PlayerController playerController, PortalsController portalsController)
 		{
 			IntToActorType = new Dictionary<int, CreateActorAction>()
 			{
 				{0, CreatePlayer},
 				{1, CreateBrick},
 				{2, CreateBomb},
+				{3, CreatePortal},
 			};
 
 			m_InputManager = inputManager;
 			m_PlayerController = playerController;
-			m_CollisionDetection = collisionDetection;
+			m_CollisionDetection = playerController.CollisionDetection;
+			m_PortalsController = portalsController;
 		}
 
 		private Actor CreatePlayer()
@@ -60,6 +63,17 @@ namespace Logic
 			BombView view = go.AddComponent<BombView>();
 			view.Init(bomb);
 			return bomb;
+		}
+
+		private Actor CreatePortal()
+		{
+			Portal portal = new Portal();
+			GameObject go = new GameObject("Portal");
+			go.transform.localScale *= VIEW_SCALE_FACTOR;
+			PortalView view = go.AddComponent<PortalView>();
+			view.Init(portal);
+			m_PortalsController.AddPortal(portal);
+			return portal;
 		}
 
 		public Actor CreateActor(int actorType)

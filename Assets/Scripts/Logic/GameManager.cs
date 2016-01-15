@@ -16,7 +16,7 @@ namespace Logic
 		private List<Actor> m_Actors;
 		private InputManager m_InputManager;
 		private CollisionDetection m_CollisionDetection;
-
+		private PortalsController m_PortalsController;
 		/// <summary>
 		/// Init this instance.
 		/// </summary>
@@ -25,8 +25,10 @@ namespace Logic
 			m_InputManager = new InputManager();
 			m_Grid = new Grid();
 			m_Grid.Load(GRID_DATA_FILE_NAME);
+			m_PortalsController = new PortalsController();
 			m_CollisionDetection = new CollisionDetection(m_Grid);
-			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection), m_CollisionDetection));
+			ActorFactory factory = new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection), m_PortalsController);
+			SpawnManager spawnManager = new SpawnManager(factory);
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
 			m_Actors = spawnManager.Spawn(m_Grid);
 			m_CollisionDetection.Init(m_Actors);

@@ -59,17 +59,19 @@ namespace Logic
 		public void LoadData(string fileName)
 		{
 			m_Data = new List<SpawnData>();
-			m_Data.Add(new SpawnData(0, 0, 0));
-			m_Data.Add(new SpawnData(0, 1, 1));
-			m_Data.Add(new SpawnData(0, 2, 1));
-			m_Data.Add(new SpawnData(0, 3, 1));
-			m_Data.Add(new SpawnData(0, 4, 1));
-			m_Data.Add(new SpawnData(1, 2, 2));
-			m_Data.Add(new SpawnData(2, 0, 1));
-			m_Data.Add(new SpawnData(2, 1, 1));
-			m_Data.Add(new SpawnData(2, 2, 1));
-			m_Data.Add(new SpawnData(2, 3, 1));
-			m_Data.Add(new SpawnData(2, 4, 1));
+			m_Data.Add(new SpawnData(0, 0, 0)); //player
+			m_Data.Add(new SpawnData(0, 1, 1)); //brick
+			m_Data.Add(new SpawnData(0, 2, 1)); //brick
+			m_Data.Add(new SpawnData(0, 3, 1)); //brick
+			m_Data.Add(new SpawnData(0, 4, 1)); //brick
+			m_Data.Add(new SpawnData(1, 2, 2)); //bomb
+			m_Data.Add(new SpawnData(2, 0, 1)); //brick
+			m_Data.Add(new SpawnData(2, 1, 1)); //brick
+			m_Data.Add(new SpawnData(2, 2, 1)); //brick
+			m_Data.Add(new SpawnData(2, 3, 1)); //brick
+			m_Data.Add(new SpawnData(2, 4, 1)); //brick
+			m_Data.Add(new SpawnData(4, 4, 3)); //portal
+			m_Data.Add(new SpawnData(8, 4, 3)); //portal
 
 		}
 	}

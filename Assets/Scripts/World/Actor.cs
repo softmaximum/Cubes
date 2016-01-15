@@ -26,6 +26,7 @@ namespace World
 		public bool IsDestroyed {get; private set;}
 		public Action Initialized;
 		public Action<Actor> OnPositionChanged;
+		public Action<Actor> OnPositionImmediateChanged;
 		public Action<Actor> OnCollide;
 		public Action<Actor> OnDestroy;
 
@@ -70,6 +71,20 @@ namespace World
 			if (OnDestroy != null)
 			{
 				OnDestroy(this);
+			}
+		}
+
+		public void MoveImmediateTo(int x, int y)
+		{
+			m_Position = new Position(x, y);
+		}
+
+		public void MoveImmediateTo(Position positon)
+		{
+			m_Position = positon;
+			if (OnPositionImmediateChanged != null)
+			{
+				OnPositionImmediateChanged(this);
 			}
 		}
 
