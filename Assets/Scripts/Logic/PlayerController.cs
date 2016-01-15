@@ -35,6 +35,8 @@ namespace Logic
 				case KeyCode.RightArrow:
 					MoveTo(new Position(m_Player.Position.X + 1, m_Player.Position.Y));
 					break;
+				case KeyCode.Space:
+					break;
 			}
 		}
 

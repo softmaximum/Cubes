@@ -66,7 +66,7 @@ namespace World
 
 		public void MoveTo(Position position)
 		{
-			if (CanMove && m_Position.X != position.X || m_Position.Y != position.Y)
+			if (CanMove && (m_Position.X != position.X || m_Position.Y != position.Y))
 			{
 				m_Position = position;
 				if (OnPositionChanged != null)
