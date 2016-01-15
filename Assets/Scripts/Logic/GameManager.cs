@@ -24,13 +24,14 @@ namespace Logic
 		{
 			m_InputManager = new InputManager();
 			m_Grid = new Grid();
+			m_Actors = new List<Actor>();
 			m_Grid.Load(GRID_DATA_FILE_NAME);
 			m_PortalsController = new PortalsController();
 			m_CollisionDetection = new CollisionDetection(m_Grid);
-			ActorFactory factory = new ActorFactory(m_InputManager, m_CollisionDetection, m_PortalsController);
+			ActorFactory factory = new ActorFactory(m_Actors, m_InputManager, m_CollisionDetection, m_PortalsController);
 			SpawnManager spawnManager = new SpawnManager(factory);
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
-			m_Actors = spawnManager.Spawn(m_Grid);
+			spawnManager.Spawn(m_Grid);
 			m_CollisionDetection.Init(m_Actors);
 		}
 

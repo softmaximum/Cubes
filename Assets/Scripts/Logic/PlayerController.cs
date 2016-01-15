@@ -7,11 +7,13 @@ namespace Logic
 	public class PlayerController
 	{
 		public CollisionDetection CollisionDetection {get; private set;}
+		private ActorFactory m_Factory;
 		private Player m_Player; 
 
-		public PlayerController(CollisionDetection collisionDetection)
+		public PlayerController(CollisionDetection collisionDetection, ActorFactory factory)
 		{
 			CollisionDetection = collisionDetection;
+			m_Factory = factory;
 		}
 
 		public void Init(Player player)
@@ -36,6 +38,7 @@ namespace Logic
 					MoveTo(new Position(m_Player.Position.X + 1, m_Player.Position.Y));
 					break;
 				case KeyCode.Space:
+					CreateBomb();
 					break;
 			}
 		}
@@ -51,7 +54,9 @@ namespace Logic
 
 		private void CreateBomb()
 		{
-
+			Bomb bomb = m_Factory.CreateActor(2) as Bomb;
+			bomb.TranslateTo(m_Player.Position.X, m_Player.Position.Y + 1);
+			bomb.Init();
 		}
 
 	}

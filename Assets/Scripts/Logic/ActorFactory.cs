@@ -13,10 +13,10 @@ namespace Logic
 		private InputManager m_InputManager;
 		private CollisionDetection m_CollisionDetection;
 		private PortalsController m_PortalsController;
-
 		private Dictionary<int, CreateActorAction> IntToActorType;
+		private List<Actor> m_Actors;
 
-		public ActorFactory(InputManager inputManager, CollisionDetection collisionDetection, PortalsController portalsController)
+		public ActorFactory(List<Actor> actors, InputManager inputManager, CollisionDetection collisionDetection, PortalsController portalsController)
 		{
 			IntToActorType = new Dictionary<int, CreateActorAction>()
 			{
@@ -29,6 +29,7 @@ namespace Logic
 			m_InputManager = inputManager;
 			m_CollisionDetection = collisionDetection;
 			m_PortalsController = portalsController;
+			m_Actors = actors;
 		}
 
 		private Actor CreatePlayer()
@@ -38,7 +39,7 @@ namespace Logic
 			go.transform.localScale *= VIEW_SCALE_FACTOR;
 			PlayerView view = go.AddComponent<PlayerView>();
 			view.Init(player);
-			PlayerController playerController = new PlayerController(m_CollisionDetection);
+			PlayerController playerController = new PlayerController(m_CollisionDetection, this);
 			m_InputManager.KeyPressed += playerController.OnKeyPressed;
 			playerController.Init(player);
 			return player;
@@ -80,7 +81,9 @@ namespace Logic
 			if (IntToActorType.ContainsKey(actorType))
 			{
 				var action = IntToActorType[actorType];
-				return action();
+				Actor result = action();
+				m_Actors.Add(result);
+				return result;
 			}
 			return null;
 		}
