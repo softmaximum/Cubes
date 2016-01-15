@@ -9,11 +9,5 @@ namespace World
 		{
 
 		}
-
-		public override void OnActorCollide (Actor actor)
-		{
-			base.OnActorCollide (actor);
-			Debug.Log(actor);
-		}
 	}
 }

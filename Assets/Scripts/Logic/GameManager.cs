@@ -26,7 +26,7 @@ namespace Logic
 			m_Grid = new Grid();
 			m_Grid.Load(GRID_DATA_FILE_NAME);
 			m_CollisionDetection = new CollisionDetection(m_Grid);
-			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection)));
+			SpawnManager spawnManager = new SpawnManager(new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection), m_CollisionDetection));
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
 			m_Actors = spawnManager.Spawn(m_Grid);
 			m_CollisionDetection.Init(m_Actors);
@@ -41,7 +41,10 @@ namespace Logic
 			m_InputManager.Tick(deltaTime);
 			for (int i = 0; i < m_Actors.Count; i++) 
 			{
-				m_Actors[i].Tick(deltaTime);
+				if (!m_Actors[i].IsDestroyed)
+				{
+					m_Actors[i].Tick(deltaTime);
+				}
 			}
 		}
 	}

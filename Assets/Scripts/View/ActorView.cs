@@ -18,6 +18,7 @@ namespace View
 		{
 			Parent = actor;
 			Parent.Initialized += OnActorInitialized;
+			Parent.OnDestroy += OnDestroyHandler;
 		}
 
 		private void OnActorInitialized()
@@ -25,7 +26,7 @@ namespace View
 			Parent.Initialized -= OnActorInitialized;
 			transform.position = new Vector3(Parent.Position.X * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f, 0.0f, 
 			                                 Parent.Position.Y * Grid.GRID_CELL_SIZE + Grid.GRID_CELL_SIZE / 2.0f);
-			Parent.PositionChanged += OnPositionChanged;
+			Parent.OnPositionChanged += OnPositionChanged;
 
 		}
 
@@ -38,6 +39,14 @@ namespace View
 				StopCoroutine(m_Movement);
 			}
 			m_Movement = StartCoroutine(MoveToPoint(target, ACTOR_MOVE_SPEED));
+		}
+
+		private void OnDestroyHandler(Actor actor)
+		{
+			Parent.Initialized -= OnActorInitialized;
+			Parent.OnDestroy -= OnDestroyHandler;
+			Parent.OnPositionChanged -= OnPositionChanged;
+			Destroy(gameObject);
 		}
 
 		private IEnumerator MoveToPoint(Vector3 target, float speed, System.Action OnFinish = null)
@@ -79,7 +88,7 @@ namespace View
 			}
 			if (Parent != null)
 			{
-				Parent.PositionChanged -= OnPositionChanged;
+				Parent.OnPositionChanged -= OnPositionChanged;
 			}
 		}
 	}

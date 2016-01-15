@@ -12,19 +12,22 @@ namespace Logic
 		private delegate Actor CreateActorAction();
 		private InputManager m_InputManager;
 		private PlayerController m_PlayerController;
+		private CollisionDetection m_CollisionDetection;
 
 		private Dictionary<int, CreateActorAction> IntToActorType;
 
-		public ActorFactory(InputManager inputManager, PlayerController playerController)
+		public ActorFactory(InputManager inputManager, PlayerController playerController, CollisionDetection collisionDetection)
 		{
 			IntToActorType = new Dictionary<int, CreateActorAction>()
 			{
 				{0, CreatePlayer},
-				{1, CreateBrick}
+				{1, CreateBrick},
+				{2, CreateBomb},
 			};
 
 			m_InputManager = inputManager;
 			m_PlayerController = playerController;
+			m_CollisionDetection = collisionDetection;
 		}
 
 		private Actor CreatePlayer()
@@ -47,6 +50,16 @@ namespace Logic
 			BrickView view = go.AddComponent<BrickView>();
 			view.Init(brick);
 			return brick;
+		}
+
+		private Actor CreateBomb()
+		{
+			Bomb bomb = new Bomb(m_CollisionDetection);
+			GameObject go = new GameObject("Bomb");
+			go.transform.localScale *= VIEW_SCALE_FACTOR;
+			BombView view = go.AddComponent<BombView>();
+			view.Init(bomb);
+			return bomb;
 		}
 
 		public Actor CreateActor(int actorType)

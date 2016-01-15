@@ -22,13 +22,18 @@ namespace Logic
 			m_Colliders = colliders;
 			for (int i = 0; i < m_Colliders.Count; i++) 
 			{
-				m_Colliders[i].PositionChanged += CheckCollision;
+				m_Colliders[i].OnPositionChanged += CheckCollision;
 			}
+		}
+
+		public Actor GetRigid(int x, int y)
+		{
+			return m_Colliders.Where(collider => collider.IsRigid && collider.Position.X == x && collider.Position.Y == y).FirstOrDefault();
 		}
 
 		public Actor GetRigid(Position position)
 		{
-			return m_Colliders.Where(x => x.IsRigid && x.Position.X == position.X && x.Position.Y == position.Y).FirstOrDefault();
+			return GetRigid(position.X, position.Y);
 		}
 
 		public bool IsInGrid(Position position)
