@@ -10,12 +10,14 @@ namespace World
 		private const float LIFE_TIME_MIN = 5.0f;
 		private const float LIFE_TIME_MAX = 15.0f;
 
-		private float m_LifeTime;
+		public float LifeTime {get; private set;}
+		public float CurrentTime {get; private set;}
 		private CollisionDetection m_CollisionDetection;
 
 		public Bomb(CollisionDetection collisionDetection)
 		{
-			m_LifeTime = Random.Range(LIFE_TIME_MIN, LIFE_TIME_MAX);
+			LifeTime = Random.Range(LIFE_TIME_MIN, LIFE_TIME_MAX);
+			CurrentTime = LifeTime;
 			m_CollisionDetection = collisionDetection;
 			IsRigid = true;
 		}
@@ -23,8 +25,8 @@ namespace World
 		public override void Tick (float deltaTime)
 		{
 			base.Tick (deltaTime);
-			m_LifeTime -= deltaTime;
-			if (m_LifeTime <= 0)
+			CurrentTime -= deltaTime;
+			if (CurrentTime <= 0)
 			{
 				Destroy();
 			}

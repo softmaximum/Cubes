@@ -65,6 +65,12 @@ namespace Logic
 			m_Data.Add(new SpawnData(0, 3, 1));
 			m_Data.Add(new SpawnData(0, 4, 1));
 			m_Data.Add(new SpawnData(1, 2, 2));
+			m_Data.Add(new SpawnData(2, 0, 1));
+			m_Data.Add(new SpawnData(2, 1, 1));
+			m_Data.Add(new SpawnData(2, 2, 1));
+			m_Data.Add(new SpawnData(2, 3, 1));
+			m_Data.Add(new SpawnData(2, 4, 1));
+
 		}
 	}
 }
