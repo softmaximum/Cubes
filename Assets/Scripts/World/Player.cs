@@ -7,7 +7,7 @@ namespace World
 	{
 		public Player()
 		{
-
+			CanMove = true;
 		}
 	}
 }

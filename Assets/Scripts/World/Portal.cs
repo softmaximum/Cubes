@@ -17,6 +17,7 @@ namespace World
 
 		public void Teleport(Actor actor, float timeBeforeTeleport)
 		{
+			actor.CanMove = false;
 			m_TeleportActor = actor;
 			TimeBeforeTeleport = timeBeforeTeleport;
 			CurrentTime = timeBeforeTeleport;
@@ -30,7 +31,8 @@ namespace World
 				CurrentTime -= deltaTime;
 				if (CurrentTime <= 0 && m_TeleportActor != null)
 				{
-					m_TeleportActor.MoveImmediateTo(Position);
+					m_TeleportActor.CanMove = true;
+					m_TeleportActor.TranslateTo(Position);
 					m_TeleportActor = null;
 				}
 			}

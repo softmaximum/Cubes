@@ -24,9 +24,10 @@ namespace World
 		public bool IsCollider = true;
 		public bool IsRigid;
 		public bool IsDestroyed {get; private set;}
+		public bool CanMove = true;
 		public Action Initialized;
 		public Action<Actor> OnPositionChanged;
-		public Action<Actor> OnPositionImmediateChanged;
+		public Action<Actor> OnTranslate;
 		public Action<Actor> OnCollide;
 		public Action<Actor> OnDestroy;
 
@@ -35,17 +36,6 @@ namespace World
 			get
 			{
 				return m_Position;
-			}
-			set
-			{
-				if (m_Position.X != value.X || m_Position.Y != value.Y)
-				{
-					m_Position = value;
-					if (OnPositionChanged != null)
-					{
-						OnPositionChanged(this);
-					}
-				}
 			}
 		}
 
@@ -74,17 +64,30 @@ namespace World
 			}
 		}
 
-		public void MoveImmediateTo(int x, int y)
+		public void MoveTo(Position position)
+		{
+			if (CanMove && m_Position.X != position.X || m_Position.Y != position.Y)
+			{
+				m_Position = position;
+				if (OnPositionChanged != null)
+				{
+					OnPositionChanged(this);
+				}
+			}
+
+		}
+
+		public void TranslateTo(int x, int y)
 		{
 			m_Position = new Position(x, y);
 		}
 
-		public void MoveImmediateTo(Position positon)
+		public void TranslateTo(Position positon)
 		{
 			m_Position = positon;
-			if (OnPositionImmediateChanged != null)
+			if (OnTranslate != null)
 			{
-				OnPositionImmediateChanged(this);
+				OnTranslate(this);
 			}
 		}
 
