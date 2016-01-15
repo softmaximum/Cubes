@@ -11,13 +11,12 @@ namespace Logic
 		private const float VIEW_SCALE_FACTOR = 1.0f;
 		private delegate Actor CreateActorAction();
 		private InputManager m_InputManager;
-		private PlayerController m_PlayerController;
 		private CollisionDetection m_CollisionDetection;
 		private PortalsController m_PortalsController;
 
 		private Dictionary<int, CreateActorAction> IntToActorType;
 
-		public ActorFactory(InputManager inputManager, PlayerController playerController, PortalsController portalsController)
+		public ActorFactory(InputManager inputManager, CollisionDetection collisionDetection, PortalsController portalsController)
 		{
 			IntToActorType = new Dictionary<int, CreateActorAction>()
 			{
@@ -28,8 +27,7 @@ namespace Logic
 			};
 
 			m_InputManager = inputManager;
-			m_PlayerController = playerController;
-			m_CollisionDetection = playerController.CollisionDetection;
+			m_CollisionDetection = collisionDetection;
 			m_PortalsController = portalsController;
 		}
 
@@ -40,8 +38,9 @@ namespace Logic
 			go.transform.localScale *= VIEW_SCALE_FACTOR;
 			PlayerView view = go.AddComponent<PlayerView>();
 			view.Init(player);
-			m_InputManager.KeyPressed += m_PlayerController.OnKeyPressed;
-			m_PlayerController.Init(player);
+			PlayerController playerController = new PlayerController(m_CollisionDetection);
+			m_InputManager.KeyPressed += playerController.OnKeyPressed;
+			playerController.Init(player);
 			return player;
 		}
 

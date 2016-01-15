@@ -27,7 +27,7 @@ namespace Logic
 			m_Grid.Load(GRID_DATA_FILE_NAME);
 			m_PortalsController = new PortalsController();
 			m_CollisionDetection = new CollisionDetection(m_Grid);
-			ActorFactory factory = new ActorFactory(m_InputManager, new PlayerController(m_CollisionDetection), m_PortalsController);
+			ActorFactory factory = new ActorFactory(m_InputManager, m_CollisionDetection, m_PortalsController);
 			SpawnManager spawnManager = new SpawnManager(factory);
 			spawnManager.LoadData(SPAWN_DATA_FILE_NAME);
 			m_Actors = spawnManager.Spawn(m_Grid);
