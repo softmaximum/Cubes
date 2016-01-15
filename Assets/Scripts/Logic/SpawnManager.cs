@@ -72,6 +72,8 @@ namespace Logic
 			m_Data.Add(new SpawnData(2, 4, 1)); //brick
 			m_Data.Add(new SpawnData(4, 4, 3)); //portal
 			m_Data.Add(new SpawnData(8, 4, 3)); //portal
+			m_Data.Add(new SpawnData(6, 9, 3)); //portal
+			m_Data.Add(new SpawnData(9, 8, 3)); //portal
 
 		}
 	}
