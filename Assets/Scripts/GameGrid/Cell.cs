@@ -13,23 +13,6 @@ namespace GameGrid
 
 	public class Cell 
 	{
-		private Actor m_Owner;
-		public Actor Owner 
-		{
-			get
-			{
-				return m_Owner;
-			}
-			set
-			{
-				if (m_Owner != value)
-				{
-					m_Owner = value;
-					m_Owner.Position = Position;
-				}
-			}
-		}
-
 		public Position Position {get; private set;}
 		public CellState State {get; set;}
 

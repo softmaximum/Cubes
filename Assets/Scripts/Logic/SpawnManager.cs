@@ -44,7 +44,7 @@ namespace Logic
 					Cell cell = grid.GetCell(data.X, data.Y);
 					if (cell != null)
 					{
-						cell.Owner = actor;
+						actor.Position = cell.Position;
 						actor.Init();
 						result.Add(actor);
 					}

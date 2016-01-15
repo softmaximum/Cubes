@@ -39,9 +39,14 @@ namespace Logic
 		{
 			m_CollisionDetection.Tick(deltaTime);
 			m_InputManager.Tick(deltaTime);
-			for (int i = 0; i < m_Actors.Count; i++) 
+			//do reverse tick for proper delete actors
+			for (int i = m_Actors.Count - 1; i != 0; i--) 
 			{
-				if (!m_Actors[i].IsDestroyed)
+				if (m_Actors[i].IsDestroyed)
+				{
+					m_Actors.RemoveAt(i);
+				}
+				else
 				{
 					m_Actors[i].Tick(deltaTime);
 				}
